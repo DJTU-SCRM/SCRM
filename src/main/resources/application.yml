@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: scrm
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scrm?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  redis:
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为root）
+    password: root
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+server:
+  port: 8080
+mybatis:
+  #指定全局配置文件的位置
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+  # 分页pageHelper
+  pagehelper:
+    helper-dialect: mysql
+    reasonable: true
+    support-methods-arguments: true
+    params: count=countSql
+    rowBoundsWithCount: true
+
+  # 开启二级缓存
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.example.demo: debug   # 打印sql logging.level.com.batis.mapper=debug
+  #开启驼峰命名转换
+  configuration:
+    map-underscore-to-camel-case: true
+springfox.documentation.swagger.v2.path: /api-docs
