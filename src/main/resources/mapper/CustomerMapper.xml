@@ -1,77 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.scrm.admin.customer.dao.CustomerDao">
-  <resultMap id="BaseResultMap" type="com.example.scrm.admin.customer.entity.Customer">
-    <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
-    <result column="customer_no" jdbcType="VARCHAR" property="customerNo" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="buyer_nick" jdbcType="VARCHAR" property="buyerNick" />
-    <result column="gender" jdbcType="VARCHAR" property="gender" />
-    <result column="country" jdbcType="VARCHAR" property="country" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="district" jdbcType="VARCHAR" property="district" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
-    <result column="telno" jdbcType="VARCHAR" property="telno" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="qq" jdbcType="VARCHAR" property="qq" />
-    <result column="wangwang" jdbcType="VARCHAR" property="wangwang" />
-    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="total_purchase_amount" jdbcType="DECIMAL" property="totalPurchaseAmount" />
-    <result column="total_purchase_num" jdbcType="DECIMAL" property="totalPurchaseNum" />
-    <result column="last_purchase_time" jdbcType="TIMESTAMP" property="lastPurchaseTime" />
-    <result column="label" jdbcType="VARCHAR" property="label" />
-    <result column="b_w_list" jdbcType="VARCHAR" property="bWList" />
-    <result column="stopped" jdbcType="VARCHAR" property="stopped" />
-    <result column="last_vis_days" jdbcType="VARCHAR" property="lastVisDays" />
-    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
-    <result column="registration_time" jdbcType="TIMESTAMP" property="registrationTime" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="after_buying_rate" jdbcType="VARCHAR" property="afterBuyingRate" />
-    <result column="drain_cycle" jdbcType="VARCHAR" property="drainCycle" />
-    <result column="prop1" jdbcType="VARCHAR" property="prop1" />
-    <result column="prop2" jdbcType="VARCHAR" property="prop2" />
-    <result column="prop3" jdbcType="VARCHAR" property="prop3" />
-    <result column="prop4" jdbcType="VARCHAR" property="prop4" />
-    <result column="prop5" jdbcType="VARCHAR" property="prop5" />
-    <result column="prop6" jdbcType="VARCHAR" property="prop6" />
-    <result column="load_time" jdbcType="TIMESTAMP" property="loadTime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.scrm.admin.customer.dao.CustomerDao" >
+  <resultMap id="BaseResultMap" type="com.example.scrm.admin.customer.entity.Customer" >
+    <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="customer_platform_type" property="customerPlatformType" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="zip" property="zip" jdbcType="VARCHAR" />
+    <result column="telno" property="telno" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="last_purchase_time" property="lastPurchaseTime" jdbcType="TIMESTAMP" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="b_w_list" property="bWList" jdbcType="VARCHAR" />
+    <result column="stopped" property="stopped" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+    <result column="login_place" property="loginPlace" jdbcType="VARCHAR" />
+    <result column="login_browser" property="loginBrowser" jdbcType="VARCHAR" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="registration_time" property="registrationTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="prop1" property="prop1" jdbcType="VARCHAR" />
+    <result column="prop2" property="prop2" jdbcType="VARCHAR" />
+    <result column="prop3" property="prop3" jdbcType="VARCHAR" />
+    <result column="prop4" property="prop4" jdbcType="VARCHAR" />
+    <result column="prop5" property="prop5" jdbcType="VARCHAR" />
+    <result column="prop6" property="prop6" jdbcType="VARCHAR" />
+    <result column="sector_name" property="sectorName" jdbcType="VARCHAR" />
+    <result column="organiz_name" property="organizName" jdbcType="VARCHAR" />
+    <result column="load_time" property="loadTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List">
-    customer_type, customer_no, customer_name, buyer_nick, gender, country, province, 
-    city, district, address, zip, telno, mobile, email, qq, wangwang, birthday, total_purchase_amount, 
-    total_purchase_num, last_purchase_time, label, b_w_list, stopped, last_vis_days, 
-    modified_time, registration_time, remark, after_buying_rate, drain_cycle, prop1, 
-    prop2, prop3, prop4, prop5, prop6, load_time
-  </sql>
-  <insert id="insert" parameterType="com.example.scrm.admin.customer.entity.Customer">
-    insert into customer (customer_type, customer_no, customer_name, 
-      buyer_nick, gender, country, 
-      province, city, district, 
-      address, zip, telno, 
-      mobile, email, qq, 
-      wangwang, birthday, total_purchase_amount, 
-      total_purchase_num, last_purchase_time, label, 
-      b_w_list, stopped, last_vis_days, 
-      modified_time, registration_time, remark, 
-      after_buying_rate, drain_cycle, prop1, 
-      prop2, prop3, prop4, 
-      prop5, prop6, load_time
-      )
-    values (#{customerType,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
-      #{buyerNick,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{zip,jdbcType=VARCHAR}, #{telno,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{wangwang,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{totalPurchaseAmount,jdbcType=DECIMAL}, 
-      #{totalPurchaseNum,jdbcType=DECIMAL}, #{lastPurchaseTime,jdbcType=TIMESTAMP}, #{label,jdbcType=VARCHAR}, 
-      #{bWList,jdbcType=VARCHAR}, #{stopped,jdbcType=VARCHAR}, #{lastVisDays,jdbcType=VARCHAR}, 
-      #{modifiedTime,jdbcType=TIMESTAMP}, #{registrationTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
-      #{afterBuyingRate,jdbcType=VARCHAR}, #{drainCycle,jdbcType=VARCHAR}, #{prop1,jdbcType=VARCHAR}, 
-      #{prop2,jdbcType=VARCHAR}, #{prop3,jdbcType=VARCHAR}, #{prop4,jdbcType=VARCHAR}, 
-      #{prop5,jdbcType=VARCHAR}, #{prop6,jdbcType=VARCHAR}, #{loadTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
 </mapper>
