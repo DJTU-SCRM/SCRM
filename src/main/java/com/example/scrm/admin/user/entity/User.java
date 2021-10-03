@@ -147,55 +147,6 @@ public class User implements Serializable {
     }
 
     @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        User other = (User) that;
-        return (this.getUserAccount() == null ? other.getUserAccount() == null : this.getUserAccount().equals(other.getUserAccount()))
-            && (this.getUserUuid() == null ? other.getUserUuid() == null : this.getUserUuid().equals(other.getUserUuid()))
-            && (this.getUserPwd() == null ? other.getUserPwd() == null : this.getUserPwd().equals(other.getUserPwd()))
-            && (this.getUserLimit() == null ? other.getUserLimit() == null : this.getUserLimit().equals(other.getUserLimit()))
-            && (this.getLoginPlace() == null ? other.getLoginPlace() == null : this.getLoginPlace().equals(other.getLoginPlace()))
-            && (this.getLoginBrowser() == null ? other.getLoginBrowser() == null : this.getLoginBrowser().equals(other.getLoginBrowser()))
-            && (this.getLoginIp() == null ? other.getLoginIp() == null : this.getLoginIp().equals(other.getLoginIp()))
-            && (this.getCreatedBy() == null ? other.getCreatedBy() == null : this.getCreatedBy().equals(other.getCreatedBy()))
-            && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()))
-            && (this.getLastModifiedBy() == null ? other.getLastModifiedBy() == null : this.getLastModifiedBy().equals(other.getLastModifiedBy()))
-            && (this.getGmtModified() == null ? other.getGmtModified() == null : this.getGmtModified().equals(other.getGmtModified()))
-            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-            && (this.getSortNo() == null ? other.getSortNo() == null : this.getSortNo().equals(other.getSortNo()))
-            && (this.getVersion() == null ? other.getVersion() == null : this.getVersion().equals(other.getVersion()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getUserAccount() == null) ? 0 : getUserAccount().hashCode());
-        result = prime * result + ((getUserUuid() == null) ? 0 : getUserUuid().hashCode());
-        result = prime * result + ((getUserPwd() == null) ? 0 : getUserPwd().hashCode());
-        result = prime * result + ((getUserLimit() == null) ? 0 : getUserLimit().hashCode());
-        result = prime * result + ((getLoginPlace() == null) ? 0 : getLoginPlace().hashCode());
-        result = prime * result + ((getLoginBrowser() == null) ? 0 : getLoginBrowser().hashCode());
-        result = prime * result + ((getLoginIp() == null) ? 0 : getLoginIp().hashCode());
-        result = prime * result + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
-        result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
-        result = prime * result + ((getLastModifiedBy() == null) ? 0 : getLastModifiedBy().hashCode());
-        result = prime * result + ((getGmtModified() == null) ? 0 : getGmtModified().hashCode());
-        result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
-        result = prime * result + ((getSortNo() == null) ? 0 : getSortNo().hashCode());
-        result = prime * result + ((getVersion() == null) ? 0 : getVersion().hashCode());
-        return result;
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

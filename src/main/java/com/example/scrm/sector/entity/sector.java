@@ -67,39 +67,6 @@ public class sector implements Serializable {
     }
 
     @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        sector other = (sector) that;
-        return (this.getSectorName() == null ? other.getSectorName() == null : this.getSectorName().equals(other.getSectorName()))
-            && (this.getSectorNo() == null ? other.getSectorNo() == null : this.getSectorNo().equals(other.getSectorNo()))
-            && (this.getSectorType() == null ? other.getSectorType() == null : this.getSectorType().equals(other.getSectorType()))
-            && (this.getOrganizType() == null ? other.getOrganizType() == null : this.getOrganizType().equals(other.getOrganizType()))
-            && (this.getCreatedBy() == null ? other.getCreatedBy() == null : this.getCreatedBy().equals(other.getCreatedBy()))
-            && (this.getGmtCreate() == null ? other.getGmtCreate() == null : this.getGmtCreate().equals(other.getGmtCreate()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getSectorName() == null) ? 0 : getSectorName().hashCode());
-        result = prime * result + ((getSectorNo() == null) ? 0 : getSectorNo().hashCode());
-        result = prime * result + ((getSectorType() == null) ? 0 : getSectorType().hashCode());
-        result = prime * result + ((getOrganizType() == null) ? 0 : getOrganizType().hashCode());
-        result = prime * result + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
-        result = prime * result + ((getGmtCreate() == null) ? 0 : getGmtCreate().hashCode());
-        return result;
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

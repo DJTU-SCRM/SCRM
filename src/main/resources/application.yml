@@ -29,7 +29,7 @@ spring:
         # 连接池中的最小空闲连接
         min-idle: 0
 server:
-  port: 8080
+  port: 8081
 mybatis:
   #指定全局配置文件的位置
   mapper-locations: classpath:mapper/*Mapper.xml
