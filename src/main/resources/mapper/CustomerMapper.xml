@@ -41,5 +41,275 @@
     <result column="organiz_name" property="organizName" jdbcType="VARCHAR" />
     <result column="load_time" property="loadTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Base_Column_List" >
+    customer_type, customer_platform_type, customer_no, customer_name, buyer_nick, gender, 
+    country, province, city, district, address, zip, telno, mobile, img, email, qq, wechat, 
+    birthday, last_purchase_time, label, b_w_list, stopped, modified_time, login_place, 
+    login_browser, login_ip, registration_time, remark, prop1, prop2, prop3, prop4, prop5, 
+    prop6, sector_name, organiz_name, load_time
+  </sql>
+  <insert id="insert" parameterType="com.example.scrm.admin.customer.entity.Customer" >
+    insert into customer (customer_type, customer_platform_type,
+      customer_no, customer_name, buyer_nick, 
+      gender, country, province, 
+      city, district, address, 
+      zip, telno, mobile, 
+      img, email, qq, wechat, 
+      birthday, last_purchase_time, label, 
+      b_w_list, stopped, modified_time, 
+      login_place, login_browser, login_ip, 
+      registration_time, remark, prop1, 
+      prop2, prop3, prop4, 
+      prop5, prop6, sector_name, 
+      organiz_name, load_time)
+    values (#{customerType,jdbcType=VARCHAR}, #{customerPlatformType,jdbcType=VARCHAR}, 
+      #{customerNo,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{buyerNick,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{zip,jdbcType=VARCHAR}, #{telno,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{lastPurchaseTime,jdbcType=TIMESTAMP}, #{label,jdbcType=VARCHAR}, 
+      #{bWList,jdbcType=VARCHAR}, #{stopped,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{loginPlace,jdbcType=VARCHAR}, #{loginBrowser,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{registrationTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{prop1,jdbcType=VARCHAR}, 
+      #{prop2,jdbcType=VARCHAR}, #{prop3,jdbcType=VARCHAR}, #{prop4,jdbcType=VARCHAR}, 
+      #{prop5,jdbcType=VARCHAR}, #{prop6,jdbcType=VARCHAR}, #{sectorName,jdbcType=VARCHAR}, 
+      #{organizName,jdbcType=VARCHAR}, #{loadTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.scrm.admin.customer.entity.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="customerPlatformType != null" >
+        customer_platform_type,
+      </if>
+      <if test="customerNo != null" >
+        customer_no,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="buyerNick != null" >
+        buyer_nick,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="zip != null" >
+        zip,
+      </if>
+      <if test="telno != null" >
+        telno,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="lastPurchaseTime != null" >
+        last_purchase_time,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="bWList != null" >
+        b_w_list,
+      </if>
+      <if test="stopped != null" >
+        stopped,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="loginPlace != null" >
+        login_place,
+      </if>
+      <if test="loginBrowser != null" >
+        login_browser,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="registrationTime != null" >
+        registration_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="prop1 != null" >
+        prop1,
+      </if>
+      <if test="prop2 != null" >
+        prop2,
+      </if>
+      <if test="prop3 != null" >
+        prop3,
+      </if>
+      <if test="prop4 != null" >
+        prop4,
+      </if>
+      <if test="prop5 != null" >
+        prop5,
+      </if>
+      <if test="prop6 != null" >
+        prop6,
+      </if>
+      <if test="sectorName != null" >
+        sector_name,
+      </if>
+      <if test="organizName != null" >
+        organiz_name,
+      </if>
+      <if test="loadTime != null" >
+        load_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPlatformType != null" >
+        #{customerPlatformType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerNick != null" >
+        #{buyerNick,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null" >
+        #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="telno != null" >
+        #{telno,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPurchaseTime != null" >
+        #{lastPurchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="bWList != null" >
+        #{bWList,jdbcType=VARCHAR},
+      </if>
+      <if test="stopped != null" >
+        #{stopped,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginPlace != null" >
+        #{loginPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="loginBrowser != null" >
+        #{loginBrowser,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null" >
+        #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prop1 != null" >
+        #{prop1,jdbcType=VARCHAR},
+      </if>
+      <if test="prop2 != null" >
+        #{prop2,jdbcType=VARCHAR},
+      </if>
+      <if test="prop3 != null" >
+        #{prop3,jdbcType=VARCHAR},
+      </if>
+      <if test="prop4 != null" >
+        #{prop4,jdbcType=VARCHAR},
+      </if>
+      <if test="prop5 != null" >
+        #{prop5,jdbcType=VARCHAR},
+      </if>
+      <if test="prop6 != null" >
+        #{prop6,jdbcType=VARCHAR},
+      </if>
+      <if test="sectorName != null" >
+        #{sectorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizName != null" >
+        #{organizName,jdbcType=VARCHAR},
+      </if>
+      <if test="loadTime != null" >
+        #{loadTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
 
 </mapper>

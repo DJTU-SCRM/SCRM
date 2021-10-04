@@ -50,6 +50,6 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="customer" domainObjectName="Customer"></table>
+        <table tableName="customer" domainObjectName="Customer2"></table>
     </context>
 </generatorConfiguration>
