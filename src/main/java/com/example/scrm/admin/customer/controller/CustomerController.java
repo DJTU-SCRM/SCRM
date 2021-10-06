@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * 客户信息管理
  *
@@ -21,6 +23,8 @@ import java.util.List;
  * @version 2.0
  * @date 2021/10/4 13:49
  */
+
+@RequestMapping("/backend/customerLogin")
 @RestController
 public class CustomerController {
 
@@ -37,7 +41,7 @@ public class CustomerController {
      * @date  2021.10.04 17:57
      * @return java.lang.String
      */
-    @RequestMapping(value="/customerManager/selectCustomers")
+    @RequestMapping(value="selectCustomers")
     public AppResponse selectCustomers(Customer customer) {
 
         return selectAllCustomers(customer);
@@ -52,7 +56,7 @@ public class CustomerController {
      * @date  2021.10.04 18:10
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/customerManager/selectCustomerByCustomerNo")
+    @RequestMapping(value="selectCustomerByCustomerNo")
     public AppResponse selectOneCustomerByCustomerNo(String customerNo) {
 
         Customer customer = customerServiceImp.selectByPrimaryKey(customerNo);
@@ -71,7 +75,7 @@ public class CustomerController {
      * @date  2021.10.04 19:50
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/customerManager/updateCustomer")
+    @RequestMapping(value="updateCustomer")
     public AppResponse updateOneCustomer(@RequestBody Customer customer) {
         if(customer!=null){
             customerServiceImp.updateByPrimaryKeySelective(customer);
@@ -91,7 +95,7 @@ public class CustomerController {
      * @date  2021.10.06 15:28
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/customerManager/updateOneCustomerPlatformType")
+    @RequestMapping(value="updateOneCustomerPlatformType")
     public AppResponse updateOneCustomerPlatformType(String customerNo, String customerPlatformType) {
 
         Customer customer = new Customer();
@@ -115,14 +119,14 @@ public class CustomerController {
      * @date  2021.10.05 10:06
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/customerManager/deleteCustomerByCustomerNo")
+    @RequestMapping(value="deleteCustomerByCustomerNo")
     public AppResponse delectOneCustomerByCustomerNo(String customerNo) {
         customerServiceImp.deleteByPrimaryKey(customerNo);
         return selectAllCustomers(customer);
     }
 
     // 用户角色和权限的管理
-    @RequestMapping(value="/customerManager/CustomerPowerManager")
+    @RequestMapping(value="CustomerPowerManager")
     public AppResponse CustomerPowerManager(String customerNo) {
         // Todo
         return selectAllCustomers(customer);
@@ -136,7 +140,7 @@ public class CustomerController {
      * @date  2021.10.05 15:12
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/customerManager/insertCustomer")
+    @RequestMapping(value="insertCustomer")
     public AppResponse InsertCustomer(@RequestBody Customer customer) {
 
         customer.setCustomerNo(UUIDUtil.uuidStr());
@@ -160,5 +164,6 @@ public class CustomerController {
             return AppResponse.notFound();
         }
     }
+
 
 }

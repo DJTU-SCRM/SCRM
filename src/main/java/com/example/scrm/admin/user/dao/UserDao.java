@@ -11,6 +11,20 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component(value = "UserDao")
 public interface UserDao {
+    /**
+     * 用户登录
+     * @param userAccount
+     * @param userPwd
+     * @return
+     */
+    int userLogin(@Param("userAccount") String userAccount, @Param("userPwd") String userPwd);
+
+    /**
+     * 查找密码
+     * @param userAccount
+     * @return
+     */
+    String finduserPwd(@Param("userAccount") String userAccount);
 
     // 通过userAccout删除一条记录
     int deleteByPrimaryKey(String userAccount);

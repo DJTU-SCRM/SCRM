@@ -3,6 +3,7 @@ package com.example.scrm.admin.customer.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+
 public class Customer implements Serializable {
     private String customerType;
 

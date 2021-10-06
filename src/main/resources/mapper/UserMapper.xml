@@ -204,6 +204,17 @@
     from t_user
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
   </select>
+  <select id="userLogin" resultType="int">
+        select count(*) from t_user
+        where
+        user_account=#{userAccount} and
+        user_pwd=#{userPwd}
+    </select>
+  <select id="finduserPwd" resultType="String">
+        select user_pwd from t_user
+        where
+        user_account=#{userAccount}
+    </select>
 
     <select id="selectByUser" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
