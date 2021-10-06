@@ -49,7 +49,7 @@
     prop6, sector_name, organiz_name, load_time
   </sql>
   <insert id="insert" parameterType="com.example.scrm.admin.customer.entity.Customer" >
-    insert into customer (customer_type, customer_platform_type,
+    insert into t_customer (customer_type, customer_platform_type,
       customer_no, customer_name, buyer_nick, 
       gender, country, province, 
       city, district, address, 
@@ -76,8 +76,9 @@
       #{prop5,jdbcType=VARCHAR}, #{prop6,jdbcType=VARCHAR}, #{sectorName,jdbcType=VARCHAR}, 
       #{organizName,jdbcType=VARCHAR}, #{loadTime,jdbcType=TIMESTAMP})
   </insert>
+
   <insert id="insertSelective" parameterType="com.example.scrm.admin.customer.entity.Customer" >
-    insert into customer
+    insert into t_customer
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="customerType != null" >
         customer_type,
@@ -311,5 +312,129 @@
       </if>
     </trim>
   </insert>
+
+    <!--查询全部客户信息-->
+    <select id="selectByCustomer" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_customer
+    </select>
+
+    <!-- 根据customer_no查询用户信息 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_customer
+        where customer_no= #{customerNo, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据customer类修改包括的内容 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.scrm.admin.customer.entity.Customer">
+        update t_customer
+        <set>
+            <if test="customerType != null" >
+                customer_type = #{customerType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPlatformType != null" >
+                customer_platform_type = #{customerPlatformType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null" >
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="buyerNick != null" >
+                buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null" >
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="district != null" >
+                district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="zip != null" >
+                zip = #{zip,jdbcType=VARCHAR},
+            </if>
+            <if test="telno != null" >
+                telno = #{telno,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null" >
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null" >
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="wechat != null" >
+                wechat = #{wechat,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastPurchaseTime != null" >
+                last_purchase_time = #{lastPurchaseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="label != null" >
+                label = #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="bWList != null" >
+                b_w_list = #{bWList,jdbcType=VARCHAR},
+            </if>
+            <if test="stopped != null" >
+                stopped = #{stopped,jdbcType=VARCHAR},
+            </if>
+            <if test="modifiedTime != null" >
+                modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginPlace != null" >
+                login_place = #{loginPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="loginBrowser != null" >
+                login_browser = #{loginBrowser,jdbcType=VARCHAR},
+            </if>
+            <if test="loginIp != null" >
+                login_ip = #{loginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationTime != null" >
+                registration_time = #{registrationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="sectorName != null" >
+                sector_name = #{sectorName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizName != null" >
+                organiz_name = #{organizName,jdbcType=VARCHAR},
+            </if>
+            <if test="loadTime != null" >
+                load_time = #{loadTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where customer_no = #{customerNo, jdbcType=VARCHAR}
+    </update>
+
+    <!--删-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_customer
+    where customer_no = #{customerNo,jdbcType=VARCHAR}
+  </delete>
+
+
 
 </mapper>

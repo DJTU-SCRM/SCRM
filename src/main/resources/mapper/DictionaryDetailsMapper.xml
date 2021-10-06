@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.scrm.dictionaryDetails.dao.DictionaryDetailsDao" >
+  <resultMap id="BaseResultMap" type="com.example.scrm.dictionaryDetails.entity.DictionaryDetails" >
+    <id column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="customer_type_name" property="customerTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    customer_type, customer_type_name
+  </sql>
+
+  <insert id="insert" parameterType="com.example.scrm.dictionaryDetails.entity.DictionaryDetails" >
+    insert into t_dictionary_details (customer_type, customer_type_name)
+    values (#{customerType,jdbcType=VARCHAR}, #{customerTypeName,jdbcType=VARCHAR})
+  </insert>
+
+    <!--删-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_dictionary_details
+    where customer_type = #{customerType,jdbcType=VARCHAR}
+  </delete>
+
+    <!--改-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.scrm.dictionaryDetails.entity.DictionaryDetails">
+        update t_dictionary_details
+        <set>
+            <if test="customerTypeName != null">
+                customer_type_name = #{customerTypeName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where customer_type = #{customerType,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.example.scrm.dictionaryDetails.entity.DictionaryDetails">
+    update t_dictionary_details
+    set customer_type_name = #{customerTypeName,jdbcType=VARCHAR}
+    where customer_type = #{customerType,jdbcType=VARCHAR}
+  </update>
+
+    <!--查-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_dictionary_details
+        where customer_type = #{customerType,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByDictionaryDetails" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_dictionary_details
+    </select>
+</mapper>
