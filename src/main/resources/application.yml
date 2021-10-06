@@ -11,6 +11,16 @@ spring:
       enabled: true
       max-file-size: 1000MB
       max-request-size: 1000MB
+  security:
+    user:
+      name: user
+      password: 123
+  # LDAP连接配置 dap默认端口为389，ldaps默认端口为636
+  ldap:
+    urls: ldaps://x.x.x.x:636/
+    base: ou=xxx,dc=ad,dc=xxx,dc=com
+    username: #用户
+    password: #密码
   redis:
     # Redis服务器地址
     host: 127.0.0.1
