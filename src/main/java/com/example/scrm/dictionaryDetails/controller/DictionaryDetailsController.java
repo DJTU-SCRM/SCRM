@@ -18,6 +18,7 @@ import java.util.List;
  * @version 1.0
  * @date 2021/10/3 16:22
  */
+@RequestMapping("/backend/dictionary")
 @RestController
 public class DictionaryDetailsController {
     @Autowired
@@ -33,7 +34,7 @@ public class DictionaryDetailsController {
      * @date  2021.10.05 21:42
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/dictionaryDetailsManager/selectDictionaryDetails")
+    @RequestMapping(value="selectDictionaryDetails")
     public AppResponse selectDictionaryDetails(DictionaryDetails dictionaryDetails) {
 
         return selectAllDictionaryDetailsList(dictionaryDetails);
@@ -48,7 +49,7 @@ public class DictionaryDetailsController {
      * @date 2021.10.05 21:43
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/dictionaryDetailsManager/selectDictionaryDetailsByCustomerType")
+    @RequestMapping(value="selectDictionaryDetailsByCustomerType")
     public AppResponse selectDictionaryDetailsByCustomerType(String customerType) {
 
         DictionaryDetails dictionaryDetails = dictionaryDetailsServiceImp.selectByPrimaryKey(customerType);
@@ -67,7 +68,7 @@ public class DictionaryDetailsController {
      * @date 2021.10.05 21:43
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/dictionaryDetailsManager/updateDictionaryDetail")
+    @RequestMapping(value="updateDictionaryDetail")
     public AppResponse updateOneDictionaryDetail(@RequestBody DictionaryDetails dictionaryDetails) {
 
         if(dictionaryDetails!=null){
@@ -87,7 +88,7 @@ public class DictionaryDetailsController {
      * @date 2021.10.05 21:43
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/dictionaryDetailsManager/deleteDictionaryDetailsByCustomerType")
+    @RequestMapping(value="deleteDictionaryDetailsByCustomerType")
     public AppResponse delectOneDictionaryDetailsByCustomerType(String customerType) {
         dictionaryDetailsServiceImp.deleteByPrimaryKey(customerType);
         return selectAllDictionaryDetailsList(dictionaryDetails);
@@ -101,7 +102,7 @@ public class DictionaryDetailsController {
      * @date 2021.10.05 21:44
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="/dictionaryDetailsManager/insertDictionaryDetails")
+    @RequestMapping(value="insertDictionaryDetails")
     public AppResponse InsertCustomer(@RequestBody DictionaryDetails dictionaryDetails) {
 
         dictionaryDetailsServiceImp.insert(dictionaryDetails);
