@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.scrm.sector.dao.sectorDao" >
-  <resultMap id="BaseResultMap" type="com.example.scrm.sector.entity.sector" >
+<mapper namespace="com.example.scrm.sector.dao.SectorDao" >
+  <resultMap id="BaseResultMap" type="com.example.scrm.sector.entity.Sector" >
     <id column="sector_name" property="sectorName" jdbcType="VARCHAR" />
     <result column="sector_no" property="sectorNo" jdbcType="VARCHAR" />
     <result column="sector_type" property="sectorType" jdbcType="VARCHAR" />
-    <result column="organiz_type" property="organizType" jdbcType="VARCHAR" />
+    <result column="organiz_no" property="organizNo" jdbcType="VARCHAR" />
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     sector_name, sector_no, sector_type, organiz_type, created_by, gmt_create
   </sql>
-  <insert id="insert" parameterType="com.example.scrm.sector.entity.sector" >
-    insert into sector_details (sector_name, sector_no, sector_type, 
-      organiz_type, created_by, gmt_create
+  <insert id="insert" parameterType="com.example.scrm.sector.entity.Sector" >
+    insert into t_sector_details (sector_name, sector_no, sector_type,
+      organiz_no, created_by, gmt_create
       )
     values (#{sectorName,jdbcType=VARCHAR}, #{sectorNo,jdbcType=VARCHAR}, #{sectorType,jdbcType=VARCHAR}, 
-      #{organizType,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}
+      #{organizNo,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}
       )
   </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="String" >
+    delete  from  t_sector_details
+    where sector_no=#{sectorNo,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByOrganization" parameterType="String" >
+    delete  from  t_sector_details
+    where organiz_no=#{organizNo,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.scrm.sector.entity.Sector">
+    update t_sector_details set
+    <if test="sectorName != null">
+      sector_name=#{sectorName,jdbcType=VARCHAR} ,
+    </if>
+    <if test="sectorNo != null">
+      sector_no=#{sectorNo,jdbcType=VARCHAR},
+    </if>
+    <if test="sectorType != null">
+      sector_type=#{sectorType,jdbcType=VARCHAR},
+    </if>
+    <if test="organizNo != null">
+      organiz_no= #{organizType,jdbcType=VARCHAR},
+    </if>
+    <if test="createdBy != null">
+      created_by=#{createdBy,jdbcType=VARCHAR},
+    </if>
+    <if test="gmtCreate != null">
+      gmt_create=#{gmtCreate,jdbcType=TIMESTAMP}
+    </if>
+    where sector_no=#{sectorNo,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllSector" resultMap="BaseResultMap">
+    select *
+    from t_sector_details
+    ORDER BY gme_create DESC
+  </select>
+
+  <select id="selectByOrganization" parameterType="String" resultMap="BaseResultMap">
+    select *
+    from t_sector_details
+    where organiz_no= #{organizNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSector" parameterType="String" resultMap="BaseResultMap">
+    select *
+    from t_sector_details
+    where organiz_no= #{organizNo,jdbcType=VARCHAR},
+          sector_name = #{sectorName,jdbcType=VARCHAR}
+  </select>
 
 </mapper>

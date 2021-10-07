@@ -3,18 +3,18 @@ package com.example.scrm.sector.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class sector implements Serializable {
+public class Sector implements Serializable {
     private String sectorName;
 
     private String sectorNo;
 
     private String sectorType;
 
-    private String organizType;
+    private String organizNo;
 
     private String createdBy;
 
-    private Date gmtCreate;
+    private String gmtCreate;
 
     private static final long serialVersionUID = 1L;
 
@@ -42,12 +42,12 @@ public class sector implements Serializable {
         this.sectorType = sectorType == null ? null : sectorType.trim();
     }
 
-    public String getOrganizType() {
-        return organizType;
+    public String getOrganizNo() {
+        return organizNo;
     }
 
-    public void setOrganizType(String organizType) {
-        this.organizType = organizType == null ? null : organizType.trim();
+    public void setOrganizNo(String organizNo) {
+        this.organizNo = organizNo == null ? null : organizNo.trim();
     }
 
     public String getCreatedBy() {
@@ -58,11 +58,11 @@ public class sector implements Serializable {
         this.createdBy = createdBy == null ? null : createdBy.trim();
     }
 
-    public Date getGmtCreate() {
+    public String getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
@@ -75,7 +75,7 @@ public class sector implements Serializable {
         sb.append(", sectorName=").append(sectorName);
         sb.append(", sectorNo=").append(sectorNo);
         sb.append(", sectorType=").append(sectorType);
-        sb.append(", organizType=").append(organizType);
+        sb.append(", organizNo=").append(organizNo);
         sb.append(", createdBy=").append(createdBy);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", serialVersionUID=").append(serialVersionUID);

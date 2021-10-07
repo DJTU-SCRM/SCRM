@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.scrm.organization.dao.organizationDao" >
-  <resultMap id="BaseResultMap" type="com.example.scrm.organization.entity.organization" >
+<mapper namespace="com.example.scrm.organization.dao.OrganizationDao" >
+  <resultMap id="BaseResultMap" type="com.example.scrm.organization.entity.Organization" >
     <id column="organiz_name" property="organizName" jdbcType="VARCHAR" />
+    <result column="organiz_no" property="organizNo" jdbcType="VARCHAR" />
     <result column="organiz_type" property="organizType" jdbcType="VARCHAR" />
-    <result column="organiz_no" property="organizNo" jdbcType="INTEGER" />
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -12,11 +12,52 @@
     organiz_name, organiz_type, organiz_no, created_by, gmt_create
   </sql>
 
-  <insert id="insert" parameterType="com.example.scrm.organization.entity.organization" >
-    insert into organiz_details (organiz_name, organiz_type, organiz_no, 
+  <insert id="insert" parameterType="com.example.scrm.organization.entity.Organization" >
+    insert into t_organiz_details (organiz_name, organiz_type, organiz_no,
       created_by, gmt_create)
-    values (#{organizName,jdbcType=VARCHAR}, #{organizType,jdbcType=VARCHAR}, #{organizNo,jdbcType=INTEGER}, 
+    values (#{organizName,jdbcType=VARCHAR}, #{organizType,jdbcType=VARCHAR}, #{organizNo,jdbcType=INTEGER},
       #{createdBy,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP})
   </insert>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="String" >
+    delete  from  t_organiz_details
+    where organiz_name=#{organizrName,jdbcType=VARCHAR}
+  </delete>
+
+
+
+  <update id="updateByPrimaryKey" parameterType="com.example.scrm.organization.entity.Organization">
+    update t_organiz_details
+    <set>
+    <if test="organizName != null">
+      organiz_name=#{organizName,jdbcType=VARCHAR},
+    </if>
+    <if test="organizType != null">
+      organiz_type=#{organizType,jdbcType=VARCHAR},
+    </if>
+    <if test="createdBy != null">
+      created_by=#{createdBy,jdbcType=VARCHAR},
+    </if>
+    <if test="gmtCreate != null">
+      gmt_create=#{gmtCreate,jdbcType=TIMESTAMP}
+    </if>
+    </set>
+    where organiz_no=#{organizNo,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllOrganization" resultMap="BaseResultMap">
+    select *
+    from t_organiz_details
+  </select>
+
+  <select id="selectOrganizNo" parameterType="String" resultType="String">
+    select organiz_no
+    from t_organiz_details
+    where organiz_name=#{organizName,jdbcType=VARCHAR}
+  </select>
+
+
+
 
 </mapper>
