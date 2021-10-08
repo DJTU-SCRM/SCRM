@@ -3,16 +3,16 @@ package com.example.scrm.organization.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class organization implements Serializable {
+public class Organization implements Serializable {
     private String organizName;
 
     private String organizType;
 
-    private Integer organizNo;
+    private String organizNo;
 
     private String createdBy;
 
-    private Date gmtCreate;
+    private String gmtCreate;
 
     private static final long serialVersionUID = 1L;
 
@@ -32,11 +32,11 @@ public class organization implements Serializable {
         this.organizType = organizType == null ? null : organizType.trim();
     }
 
-    public Integer getOrganizNo() {
+    public String getOrganizNo() {
         return organizNo;
     }
 
-    public void setOrganizNo(Integer organizNo) {
+    public void setOrganizNo(String organizNo) {
         this.organizNo = organizNo;
     }
 
@@ -48,11 +48,11 @@ public class organization implements Serializable {
         this.createdBy = createdBy == null ? null : createdBy.trim();
     }
 
-    public Date getGmtCreate() {
+    public String getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
@@ -67,7 +67,7 @@ public class organization implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        organization other = (organization) that;
+        Organization other = (Organization) that;
         return (this.getOrganizName() == null ? other.getOrganizName() == null : this.getOrganizName().equals(other.getOrganizName()))
             && (this.getOrganizType() == null ? other.getOrganizType() == null : this.getOrganizType().equals(other.getOrganizType()))
             && (this.getOrganizNo() == null ? other.getOrganizNo() == null : this.getOrganizNo().equals(other.getOrganizNo()))
