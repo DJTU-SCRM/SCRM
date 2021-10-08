@@ -62,13 +62,13 @@
       <if test="createdBy != null">
         created_by,
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate == null">
         gmt_create,
       </if>
       <if test="lastModifiedBy != null">
         last_modified_by,
       </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified == null">
         gmt_modified,
       </if>
       <if test="isDeleted != null">
@@ -106,14 +106,14 @@
       <if test="createdBy != null">
         #{createdBy,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
+      <if test="gmtCreate == null">
+        Now(),
       </if>
       <if test="lastModifiedBy != null">
         #{lastModifiedBy,jdbcType=VARCHAR},
       </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
+      <if test="gmtModified == null">
+        Now(),
       </if>
       <if test="isDeleted != null">
         #{isDeleted,jdbcType=INTEGER},
@@ -130,7 +130,7 @@
   <!--删-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_user
-    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
   </delete>
 
   <!--改-->
@@ -173,12 +173,55 @@
       <if test="sortNo != null">
         sort_no = #{sortNo,jdbcType=INTEGER},
       </if>
-      <if test="version != null">
-        version = #{version,jdbcType=INTEGER},
-      </if>
+        version = version + 1
     </set>
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
   </update>
+
+    <update id="updateByUserAccount" parameterType="com.example.scrm.admin.user.entity.User">
+        update t_user
+        <set>
+            <if test="userUuid != null">
+                user_uuid = #{userUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                user_pwd = #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userLimit != null">
+                user_limit = #{userLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPlace != null">
+                login_place = #{loginPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="loginBrowser != null">
+                login_browser = #{loginBrowser,jdbcType=VARCHAR},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=INTEGER},
+            </if>
+            <if test="sortNo != null">
+                sort_no = #{sortNo,jdbcType=INTEGER},
+            </if>
+                version = version + 1
+        </set>
+        where user_account = #{userAccount,jdbcType=VARCHAR}
+    </update>
+
   <update id="updateByPrimaryKey" parameterType="com.example.scrm.admin.user.entity.User">
     update t_user
     set user_account = #{userAccount,jdbcType=VARCHAR},
@@ -193,8 +236,8 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       is_deleted = #{isDeleted,jdbcType=INTEGER},
       sort_no = #{sortNo,jdbcType=INTEGER},
-      version = #{version,jdbcType=INTEGER}
-    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+      version = version + 1
+    where user_account = #{userAccount,jdbcType=VARCHAR}
   </update>
 
   <!--查-->
@@ -202,8 +245,9 @@
     select
     <include refid="Base_Column_List" />
     from t_user
-    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
   </select>
+
   <select id="userLogin" resultType="int">
         select count(*) from t_user
         where

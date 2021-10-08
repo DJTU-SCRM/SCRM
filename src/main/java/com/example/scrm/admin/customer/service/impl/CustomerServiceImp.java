@@ -27,13 +27,18 @@ public class CustomerServiceImp implements CustomerService {
     private CustomerDao customerDao;
 
     @Override
-    public int deleteByPrimaryKey(String customType) {
-        return customerDao.deleteByPrimaryKey(customType);
+    public int deleteByPrimaryKey(String customNo) {
+        if (customNo!=null) {
+            customerDao.deleteByPrimaryKey(customNo);
+            return 1;
+        }else{
+            return 2;
+        }
     }
 
     @Override
     public int insert(Customer record) {
-        return customerDao.insert(record);
+            return customerDao.insert(record);
     }
 
     @Override
@@ -47,17 +52,33 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
-    public Customer selectByPrimaryKey(String userAccount) {
-        return customerDao.selectByPrimaryKey(userAccount);
+    public List<Customer> selectOnlineCustomerByPrimaryKey(Customer customer) {
+        return customerDao.selectOnlineCustomerByPrimaryKey(customer);
     }
 
     @Override
+    public Customer selectByPrimaryKey(String customNo) {
+        return customerDao.selectByPrimaryKey(customNo);
+    }
+
+    @Override
+    //1正常 2 CustomerNo为空
     public int updateByPrimaryKeySelective(Customer record) {
-        return customerDao.updateByPrimaryKeySelective(record);
+        if (record.getCustomerNo()!=null) {
+            customerDao.updateByPrimaryKeySelective(record);
+            return 1;
+        }else {
+            return 2;
+        }
     }
 
     @Override
     public int updateByPrimaryKey(Customer record) {
-        return customerDao.updateByPrimaryKey(record);
+        if (record.getCustomerNo()!=null) {
+            customerDao.updateByPrimaryKey(record);
+            return 1;
+        }else{
+            return 2;
+        }
     }
 }

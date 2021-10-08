@@ -5,11 +5,8 @@ import com.example.scrm.admin.customer.service.impl.CustomerServiceImp;
 import com.example.scrm.util.UUIDUtil;
 import com.example.scrm.util.response.AppResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -34,14 +31,14 @@ public class CustomerController {
     private CustomerServiceImp customerServiceImp;
 
     /**
-     *
      * 查询所有客户的信息
+     *
      * @param customer
-     * @author 孙少聪
-     * @date  2021.10.04 17:57
      * @return java.lang.String
+     * @author 孙少聪
+     * @date 2021.10.04 17:57
      */
-    @RequestMapping(value="selectCustomers")
+    @GetMapping(value = "selectCustomers")
     public AppResponse selectCustomers(Customer customer) {
 
         return selectAllCustomers(customer);
@@ -49,104 +46,118 @@ public class CustomerController {
     }
 
     /**
-     *
      * 根据customerNo查询用户信息
+     *
      * @param customerNo
-     * @author 孙少聪
-     * @date  2021.10.04 18:10
      * @return com.example.scrm.util.response.AppResponse
+     * @author 孙少聪
+     * @date 2021.10.04 18:10
      */
-    @RequestMapping(value="selectCustomerByCustomerNo")
+    @GetMapping(value = "selectCustomerByCustomerNo")
     public AppResponse selectOneCustomerByCustomerNo(String customerNo) {
 
         Customer customer = customerServiceImp.selectByPrimaryKey(customerNo);
-        if(customer!=null){
+        if (customer != null) {
             return AppResponse.success("customer", customer);
-        }else{
+        } else {
             return AppResponse.notFound();
         }
     }
 
     /**
-     *
      * 根据前端信息更新客户信息
+     *
      * @param customer
-     * @author 孙少聪
-     * @date  2021.10.04 19:50
      * @return com.example.scrm.util.response.AppResponse
+     * @author 孙少聪
+     * @date 2021.10.04 19:50
      */
-    @RequestMapping(value="updateCustomer")
-    public AppResponse updateOneCustomer(@RequestBody Customer customer) {
-        if(customer!=null){
+    @PostMapping(value = "updateCustomer")
+    public AppResponse updateOneCustomer(Customer customer) {
+        if (customer != null) {
             customerServiceImp.updateByPrimaryKeySelective(customer);
             Customer customerByCustomerNo = customerServiceImp.selectByPrimaryKey(customer.getCustomerNo());
             return AppResponse.success("customerByCustomerNo", customerByCustomerNo);
-        }else{
+        } else {
             return AppResponse.notFound();
         }
     }
 
     /**
-     *
      * 修改会员来源
+     *
      * @param customerNo
      * @param customerPlatformType
-     * @author 孙少聪
-     * @date  2021.10.06 15:28
      * @return com.example.scrm.util.response.AppResponse
+     * @author 孙少聪
+     * @date 2021.10.06 15:28
      */
-    @RequestMapping(value="updateOneCustomerPlatformType")
+    @PostMapping(value = "updateOneCustomerPlatformType")
     public AppResponse updateOneCustomerPlatformType(String customerNo, String customerPlatformType) {
 
         Customer customer = new Customer();
-        if(customerNo !=null && customerPlatformType!=null) {
+        if (customerNo != null && customerPlatformType != null) {
             customer.setCustomerNo(customerNo);
             customer.setCustomerPlatformType(customerPlatformType);
             customerServiceImp.updateByPrimaryKeySelective(customer);
             Customer customerByCustomerNo = customerServiceImp.selectByPrimaryKey(customer.getCustomerNo());
             return AppResponse.success("customerByCustomerNo", customerByCustomerNo);
 
-        }else {
+        } else {
             return AppResponse.notFound();
         }
     }
 
     /**
-     *
      * 根据customerNo删除某条用户信息
+     *
      * @param customerNo
-     * @author 孙少聪
-     * @date  2021.10.05 10:06
      * @return com.example.scrm.util.response.AppResponse
+     * @author 孙少聪
+     * @date 2021.10.05 10:06
      */
-    @RequestMapping(value="deleteCustomerByCustomerNo")
+    @PostMapping(value = "deleteCustomerByCustomerNo")
     public AppResponse delectOneCustomerByCustomerNo(String customerNo) {
         customerServiceImp.deleteByPrimaryKey(customerNo);
         return selectAllCustomers(customer);
     }
 
     // 用户角色和权限的管理
-    @RequestMapping(value="CustomerPowerManager")
+    @PostMapping(value = "CustomerPowerManager")
     public AppResponse CustomerPowerManager(String customerNo) {
         // Todo
         return selectAllCustomers(customer);
     }
 
     /**
-     *
      * 根据customer对象插入客户信息
+     *
      * @param customer
-     * @author 孙少聪
-     * @date  2021.10.05 15:12
      * @return com.example.scrm.util.response.AppResponse
+     * @author 孙少聪
+     * @date 2021.10.05 15:12
      */
-    @RequestMapping(value="insertCustomer")
-    public AppResponse InsertCustomer(@RequestBody Customer customer) {
+    @PostMapping(value = "insertCustomer")
+    public AppResponse InsertCustomer(Customer customer) {
 
         customer.setCustomerNo(UUIDUtil.uuidStr());
         customerServiceImp.insertSelective(customer);
         return selectAllCustomers(customer);
     }
+
+    //查看在线会员的人员信息
+    @GetMapping(value = "onlineCustomerList")
+    public AppResponse onlineCustomerList(Customer customer) {
+
+        List<Customer> onlineCustomerList = customerServiceImp.selectOnlineCustomerByPrimaryKey(customer);
+        if (onlineCustomerList != null) {
+            return AppResponse.success("onlineCustomerList", onlineCustomerList);
+        } else {
+            return AppResponse.notFound("无在线用户");
+        }
+
+    }
+
 
     /**
      *
@@ -164,6 +175,5 @@ public class CustomerController {
             return AppResponse.notFound();
         }
     }
-
 
 }

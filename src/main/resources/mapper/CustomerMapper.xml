@@ -328,6 +328,13 @@
         where customer_no= #{customerNo, jdbcType=VARCHAR}
     </select>
 
+    <select id="selectOnlineCustomerByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_customer
+        where login_ip is not null
+    </select>
+
     <!-- 根据customer类修改包括的内容 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.example.scrm.admin.customer.entity.Customer">
         update t_customer

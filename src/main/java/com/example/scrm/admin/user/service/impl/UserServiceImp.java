@@ -4,7 +4,9 @@ import com.example.scrm.admin.user.dao.UserDao;
 import com.example.scrm.admin.user.dao.UserDao;
 import com.example.scrm.admin.user.entity.User;
 import com.example.scrm.admin.user.service.UserService;
+import com.example.scrm.util.CreateMD5;
 import com.example.scrm.util.StringLengthEmptyUndefind;
+import com.example.scrm.util.UUIDUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +33,9 @@ public class UserServiceImp implements UserService {
     UserDao userDao;
     @Resource
     StringLengthEmptyUndefind stringLengthEmptyUndefind;
+
+    int version = 0;
+
     @Override
 
     //-3:服务器被攻击，-2:用户名或密码不符合要求,0:登录失败，1:登录成功,ther：未知
@@ -55,8 +60,14 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public int deleteByPrimaryKey(String userAccount) {
-        return userDao.deleteByPrimaryKey(userAccount);
+    //1正常删除  2 userUuid为空
+    public int deleteByPrimaryKey(String userUuid) {
+        if (userUuid!=null) {
+            userDao.deleteByPrimaryKey(userUuid);
+            return 1;
+        }else {
+            return 2;
+        }
     }
 
     @Override
@@ -65,8 +76,35 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    // 1 成功  2 账户密码未获取到 3.用户Uuid为空
     public int insertSelective(User record) {
-        return userDao.insertSelective(record);
+
+        // Todo
+        record.setUserUuid(UUIDUtil.uuidStr());
+
+        record.setCreatedBy("System");
+        record.setIsDeleted(0);
+        record.setSortNo(0);
+        record.setLastModifiedBy("System");
+        record.setVersion(1);
+
+        if(record!=null){
+            if(record.getUserAccount()!=null && record.getUserPwd()!=null) {
+
+                try {
+                    record.setUserPwd(CreateMD5.getMd5(record.getUserPwd()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                userDao.insertSelective(record);
+                return 1;
+            }else {
+                return 3;
+            }
+        }else{
+            return 2;
+        }
+
     }
 
     @Override
@@ -80,12 +118,52 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    // 1 成功  2 用户未获取到 3.用户Uuid为空
     public int updateByPrimaryKeySelective(User record) {
-        return userDao.updateByPrimaryKeySelective(record);
+        if(record!=null){
+            if(record.getUserUuid()!=null) {
+                userDao.updateByPrimaryKeySelective(record);
+                return 1;
+            }else {
+                return 3;
+            }
+        }else{
+            return 2;
+        }
+
     }
 
     @Override
+    // 1 成功  2 用户未获取到 3.用户账号为空
+    public int updateByUserAccount(User record) {
+        if(record!=null){
+
+            if(record.getUserAccount()!=null) {
+//                record.setVersion(record.getVersion() + 1);
+                userDao.updateByUserAccount(record);
+                return 1;
+            }else {
+                return 3;
+            }
+        }else{
+            return 2;
+        }
+    }
+
+    @Override
+    // 1 成功  2 用户未获取到 3.用户Uuid为空
+    // 注意他会将用户信息全部修改，慎用
     public int updateByPrimaryKey(User record) {
-        return userDao.updateByPrimaryKey(record);
+        if(record!=null){
+            if(record.getUserUuid()!=null) {
+//                record.setVersion(record.getVersion() + 1);
+                userDao.updateByPrimaryKey(record);
+                return 1;
+            }else {
+                return 3;
+            }
+        }else{
+            return 2;
+        }
     }
 }

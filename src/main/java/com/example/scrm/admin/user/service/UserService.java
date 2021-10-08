@@ -17,8 +17,6 @@ public interface UserService {
      */
     int userLogin(@Param("userAccount") String userAccount, @Param("userPwd") String userPwd)throws UnsupportedEncodingException;
 
-
-
     int deleteByPrimaryKey(String userAccount);
 
     int insert(User record);
@@ -30,6 +28,8 @@ public interface UserService {
     User selectByPrimaryKey(String userAccount);
 
     int updateByPrimaryKeySelective(User record);
+
+    int updateByUserAccount(User record);
 
     int updateByPrimaryKey(User record);
 }

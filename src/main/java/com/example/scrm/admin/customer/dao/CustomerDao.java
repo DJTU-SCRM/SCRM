@@ -18,6 +18,9 @@ public interface CustomerDao {
 
     List<Customer> selectByCustomer(Customer customer);
 
+    //通过loginIp查询用户信息并返回列表
+    List<Customer> selectOnlineCustomerByPrimaryKey(Customer customer);
+
     Customer selectByPrimaryKey(String customerType);
 
     int updateByPrimaryKeySelective(Customer record);
