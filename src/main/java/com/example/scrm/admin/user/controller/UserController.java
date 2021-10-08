@@ -5,7 +5,6 @@ import com.example.scrm.admin.user.service.UserService;
 import com.example.scrm.admin.user.service.impl.UserServiceImp;
 import com.example.scrm.util.CreateMD5;
 import com.example.scrm.util.JwtUtils;
-import com.example.scrm.util.UUIDUtil;
 import com.example.scrm.util.response.AppResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -46,7 +44,7 @@ public class UserController {
      * @date  2021.10.05 15:25
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="selectUsers")
+    @GetMapping(value="selectUsers")
     public AppResponse selectUsers(User user) {
 
         return selectAllCustomers(user);
@@ -56,21 +54,22 @@ public class UserController {
     /**
      *
      * 根据userAccount查询用户信息
-     * @param userUuid
+     * @param userAccount
      * @author 孙少聪
      * @date  2021.10.05 18:07
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="selectUserByUserUuid")
-    public AppResponse selectOneCustomerByUserUuid(String userUuid) {
+    @GetMapping(value="selectUserByUserAccount")
+    public AppResponse selectOneCustomerByUserAccount(String userAccount) {
 
-        User user = userServiceImp.selectByPrimaryKey(userUuid);
+        User user = userServiceImp.selectByPrimaryKey(userAccount);
         if(user!=null){
             return AppResponse.success("user", user);
         }else{
             return AppResponse.notFound();
         }
     }
+
 
     /**
      *
@@ -80,14 +79,15 @@ public class UserController {
      * @date  2021.10.05 18:12
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="updateUser")
-    public AppResponse updateOneUser(@RequestBody User user) throws UnsupportedEncodingException {
+    @PostMapping(value="updateUser")
+    public AppResponse updateOneUser(User user) throws UnsupportedEncodingException {
         if(user!=null){
-            System.out.println(user.getUserAccount());
-            System.out.println(CreateMD5.getMd5(user.getUserPwd()));
-            user.setUserPwd(CreateMD5.getMd5(user.getUserPwd()));
-            userServiceImp.updateByPrimaryKeySelective(user);
-            User userByUserAccount = userServiceImp.selectByPrimaryKey(user.getUserUuid());
+
+            if(user.getUserPwd()!=null) {
+                user.setUserPwd(CreateMD5.getMd5(user.getUserPwd()));
+            }
+            userServiceImp.updateByUserAccount(user);
+            User userByUserAccount = userServiceImp.selectByPrimaryKey(user.getUserAccount());
             return AppResponse.success("userByUserAccount", userByUserAccount);
         }else{
             return AppResponse.notFound();
@@ -97,23 +97,17 @@ public class UserController {
     /**
      *
      * 根据userUuid删除某条用户信息
-     * @param userUuid
+     * @param userAccount
      * @author 孙少聪
      * @date  2021.10.05 19:23
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="deleteUserByUserUuid")
-    public AppResponse delectOneUserByUserUuid(String userUuid) {
-        userServiceImp.deleteByPrimaryKey(userUuid);
+    @PostMapping(value="deleteUserByUserAccount")
+    public AppResponse delectOneUserByUserUuid(String userAccount) {
+        userServiceImp.deleteByPrimaryKey(userAccount);
         return selectAllCustomers(user);
     }
 
-    // 用户角色和权限的管理
-    @RequestMapping(value="UserPowerManager")
-    public AppResponse CustomerPowerManager(String userUuid) {
-        // Todo
-        return selectAllCustomers(user);
-    }
 
     /**
      *
@@ -123,13 +117,16 @@ public class UserController {
      * @date  2021.10.05 19:24
      * @return com.example.scrm.util.response.AppResponse
      */
-    @RequestMapping(value="insertUser")
-    public AppResponse InsertCustomer(@RequestBody User user) throws UnsupportedEncodingException {
+    @PostMapping(value="insertUser")
+    public AppResponse InsertUser(User user) throws UnsupportedEncodingException {
 
-        user.setUserUuid(UUIDUtil.uuidStr());
-        user.setUserPwd(CreateMD5.getMd5(user.getUserPwd()));
-        userServiceImp.insertSelective(user);
-        return selectAllCustomers(user);
+        if(userServiceImp.selectByPrimaryKey(user.getUserAccount()) == null) {
+            userServiceImp.insertSelective(user);
+            return selectAllCustomers(user);
+        }else{
+            return AppResponse.notFound("该用户已存在");
+        }
+
     }
 
     /**
@@ -175,8 +172,12 @@ public class UserController {
             System.out.println(userAccount + "---->>>" + passwordAfterEncoder);
             user.setTokenBackend(jwt);
 //            redisTemplate.opsForValue().set(tokenBackend, sysUser1, 30, TimeUnit.MINUTES);
+            if(user.getLoginIp()!=null || user.getLoginPlace()!=null || user.getLoginBrowser()!=null){
+                userServiceImp.updateByUserAccount(user);
+            }
             return AppResponse.success("登录成功", user);
         }
         return AppResponse.bizError("登录失败");
     }
+
 }
